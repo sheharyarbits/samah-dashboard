@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dataTables_wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+/* Track */
+.dataTables_wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.dataTables_wrapper::-webkit-scrollbar-thumb {
+  background: #b3b3b3;
+  border-radius: 99px;
+}
+
+/* Handle on hover */
+.dataTables_wrapper::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+.dataTables_wrapper {
+  overflow: auto;
+}
+.dataTables_length,
+.dataTables_filter {
+  display: none;
+}

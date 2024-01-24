@@ -1,0 +1,45 @@
+<table datatable class="row-border hover text-xs max-w-80 overflow-x-auto overflow-y-hidden">
+  <thead>
+    <tr>
+      <th style="min-width: 80px !important;">Order #</th>
+      <th style="min-width: 90px;">Order Date</th>
+      <th style="min-width: 110px;">Sales Channel</th>
+      <th style="min-width: 100px;">Brand Name</th>
+      <th style="min-width: 100px !important;">Supplier</th>
+      <th style="min-width: 130px !important;">Special Order No</th>
+      <th style="min-width: 140px !important;">Production Month</th>
+      <th style="min-width: 100px !important;">ETA</th>
+      <th style="min-width: 70px;">Details</th>
+      <th style="min-width: 100px;">Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dummyData index as i">
+      <td>{{item.orderNumber}}</td>
+      <td>{{item.orderDate}}</td>
+      <td>{{item.salesChannel}}</td>
+      <td>{{item.brandName}}</td>
+      <td>{{item.supplier}}</td>
+      <td>{{item.specialOrderNo}}</td>
+      <td>{{item.productionMonth}}</td>
+      <td>{{item.eta}}</td>
+      <td>{{item.orderNumber}}</td>
+      <td><span [ngStyle]="{backgroundColor: item.statusBg, color: item.statusColor}"
+          class="w-full inline-block px-1 py-[2px] text-center font-medium text-xs rounded-[2px]">{{item.status}}</span>
+      </td>
+      <td class="relative"> <span class="text-center w-full inline-block cursor-pointer"
+          (click)="toggleDropdown(item)"><fa-icon [icon]="faEllipsis" /></span>
+        <div *ngIf="showDropdown && dropdown === item.orderNumber" class="absolute bottom-10 right-[70%] w-36  z-40"
+          [ngStyle]="{ 'bottom.px': i > (dummyData.length - 5) ? 0 : null, 'top.px': i <= (dummyData.length - 5) ? 0 : null, background: '#ffffff'}">
+          <!-- Dropdown content goes here -->
+          <ul class="text-[13px] bg-white shadow-2xl overflow-hidden rounded-md">
+            <li class=" p-2 cursor-pointer hover:bg-slate-100 overflow-hidden" *ngFor="let item of dropdownLinks.links">
+              {{item.title}}
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
