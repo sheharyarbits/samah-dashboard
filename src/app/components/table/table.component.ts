@@ -1,7 +1,26 @@
-import { faSearch, faEllipsis, faL } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSearch,
+  faEllipsis,
+  faL,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
+
+interface yourData {
+  orderNumber: string;
+  orderDate: string;
+  salesChannel: string;
+  brandName: string;
+  supplier: string;
+  specialOrderNo: string;
+  productionMonth: string;
+  eta: string;
+  status: string;
+  statusBg: string;
+  statusColor: string;
+}
 
 @Component({
   selector: 'app-table',
@@ -14,10 +33,19 @@ export class IndividualColumnFilteringComponent
   // Add a property to control the visibility of the dropdown
   showDropdown = false;
   dropdown: any = null;
+  faPlus = faPlus;
   dropdownLinks: any = null;
+  orderValue = '';
+  salesValue = '';
+  supplierValue = '';
+  prodMonthValue = '';
+  brandValue = '';
+  detailValue = '';
+  specialOrderValue = '';
+  statusValue = '';
 
   // Add a method to toggle the dropdown visibility
-  dummyData = [
+  dummyData: yourData[] = [
     {
       orderNumber: 'ORD001',
       orderDate: '2024-01-24',
@@ -111,6 +139,8 @@ export class IndividualColumnFilteringComponent
     },
   ];
 
+  filteredData: yourData[] = this.dummyData;
+
   dropdowns = [
     {
       status: 'Draft',
@@ -150,6 +180,61 @@ export class IndividualColumnFilteringComponent
       links: [{ title: 'View Details' }, { title: 'Edit Order' }],
     },
   ];
+
+  orderFilter(e: any) {
+    this.orderValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.orderNumber.toLowerCase().includes(this.orderValue.toLowerCase())
+    );
+  }
+
+  salesFilter(e: any) {
+    this.salesValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.salesChannel.toLowerCase().includes(this.salesValue.toLowerCase())
+    );
+  }
+  supplierFilter(e: any) {
+    this.supplierValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.supplier.toLowerCase().includes(this.supplierValue.toLowerCase())
+    );
+  }
+  prodMonthFilter(e: any) {
+    this.prodMonthValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.productionMonth
+        .toLowerCase()
+        .includes(this.prodMonthValue.toLowerCase())
+    );
+  }
+  brandFilter(e: any) {
+    this.brandValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.brandName.toLowerCase().includes(this.brandValue.toLowerCase())
+    );
+  }
+  detailFilter(e: any) {
+    this.detailValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.orderDate.toLowerCase().includes(this.detailValue.toLowerCase())
+    );
+  }
+  specialOrderFilter(e: any) {
+    this.specialOrderValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.specialOrderNo
+        .toLowerCase()
+        .includes(this.specialOrderValue.toLowerCase())
+    );
+  }
+  statusFilter(e: any) {
+    this.statusValue = e.target.value;
+    this.filteredData = this.dummyData.filter((item) =>
+      item.status.toLowerCase().includes(this.statusValue.toLowerCase())
+    );
+  }
+
   toggleDropdown(item: any) {
     console.log(this.showDropdown);
 
@@ -209,17 +294,16 @@ export class IndividualColumnFilteringComponent
   }
 
   ngAfterViewInit(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-
-        // Handle keyup and change events for input elements in the footer
-        $('input', that.footer()).on('keyup change', function () {
-          if (that.search() !== (this as HTMLInputElement).value) {
-            that.search((this as HTMLInputElement).value).draw();
-          }
-        });
-      });
-    });
+    // this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     // Handle keyup and change events for input elements in the footer
+    //     $('input', that.footer()).on('keyup change', function () {
+    //       if (that.search() !== (this as HTMLInputElement).value) {
+    //         that.search((this as HTMLInputElement).value).draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
 }

@@ -1,3 +1,88 @@
+<div class='mt-[85px] mb-7 text-sm'>
+  <div class="flex flex-wrap gap-y-4 gap-x-4  mt-3">
+    <div class="border-2 boder-[#e5e5e5] flex px-2 gap-1 py-1  items-center  rounded-[10px] w-[19%]">
+      <div class="text-[#3f4348]">
+        <fa-icon [icon]="faSearch" />
+      </div>
+      <input value={{orderValue}} (input)="orderFilter($event)" type="text" class="outline-none border-none w-full"
+        placeholder="Order No">
+    </div>
+    <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[18%]">
+      <div class=" text-[#3f4348] w-4">
+        <fa-icon [icon]="faSearch" />
+      </div>
+      <input value={{salesValue}} (input)="salesFilter($event)" type="text" class="outline-none border-none w-full"
+        placeholder="Sales Channel">
+    </div>
+    <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[30%]">
+      <div class=" text-[#3f4348] w-4">
+        <fa-icon [icon]="faSearch" />
+      </div>
+      <input value={{supplierValue}} (input)="supplierFilter($event)" type="text"
+        class="outline-none border-none w-full" placeholder="Sales Consultant">
+    </div>
+    <div class="bg-button rounded-[10px] text-white flex items-center px-2 w-[25%]">
+      <div class="flex py-0 items-center gap-2">
+        <span
+          class="border-2 h-5 aspect-square flex items-center justify-center rounded-full text-[10px] font-bold"><fa-icon
+            [icon]="faPlus" /></span>
+        <p>Create Monthly Order</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="flex flex-wrap gap-y-4 gap-x-4 mt-3">
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px]  rounded-[10px] w-[22%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input value={{prodMonthValue}} (input)="prodMonthFilter($event)" type="text"
+          class="outline-none border-none w-full" placeholder="Production Month">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px]  rounded-[10px] w-[20%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input value={{brandValue}} (input)="brandFilter($event)" type="text" class="outline-none border-none w-full"
+          placeholder="Brand">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[18%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input type="text" class="outline-none border-none w-full" placeholder="Model Name">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[17%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input value={{detailValue}} (input)="detailFilter($event)" type="text" class="outline-none border-none w-full"
+          placeholder="List Name">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[20%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input value={{specialOrderValue}} (input)="specialOrderFilter($event)" type="text"
+          class="outline-none border-none w-full" placeholder="Special Order">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[21%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input value={{statusValue}} (input)="statusFilter($event)" type="text" class="outline-none border-none w-full"
+          placeholder="Status">
+      </div>
+      <div class="border-2 boder-[#e5e5e5] flex px-2 py-[6px] gap-2 rounded-[10px] w-[25%]">
+        <div class=" text-[#3f4348] w-4">
+          <fa-icon [icon]="faSearch" />
+        </div>
+        <input type="text" class="outline-none border-none w-full" placeholder="Fuel Type">
+      </div>
+    </div>
+  </div>
+</div>
+
 <table datatable class="row-border hover text-xs max-w-80 overflow-x-auto overflow-y-hidden">
   <thead>
     <tr>
@@ -15,7 +100,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of dummyData index as i">
+    <tr *ngFor="let item of filteredData index as i">
       <td>{{item.orderNumber}}</td>
       <td>{{item.orderDate}}</td>
       <td>{{item.salesChannel}}</td>
@@ -34,7 +119,8 @@
           [ngStyle]="{ 'bottom.px': i > (dummyData.length - 5) ? 0 : null, 'top.px': i <= (dummyData.length - 5) ? 0 : null, background: '#ffffff'}">
           <!-- Dropdown content goes here -->
           <ul class="text-[13px] bg-white shadow-2xl overflow-hidden rounded-md">
-            <li class=" p-2 cursor-pointer hover:bg-slate-100 overflow-hidden" *ngFor="let item of dropdownLinks.links">
+            <li class=" p-2 cursor-pointer hover:bg-slate-100 overflow-hidden border-b"
+              *ngFor="let item of dropdownLinks.links">
               {{item.title}}
             </li>
           </ul>
